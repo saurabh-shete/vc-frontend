@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import * as XLSX from "xlsx"; // Import SheetJS for Excel export
@@ -60,8 +60,20 @@ function App() {
   const [maxProfiles, setMaxProfiles] = useState(1);
   const [isRunning, setIsRunning] = useState(false);
   const [profiles, setProfiles] = useState<Profile[]>([]);
-  // For carousel navigation: track the current profile index
   const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
+
+  // Auto-fill form fields if URL parameters are available
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const urlParam = searchParams.get("url");
+    const cookieParam = searchParams.get("cookie");
+    if (urlParam) {
+      setLinkedinUrl(urlParam);
+    }
+    if (cookieParam) {
+      setSessionCookie(cookieParam);
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
