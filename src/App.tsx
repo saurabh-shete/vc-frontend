@@ -73,7 +73,7 @@ function App() {
     setIsRunning(true);
     try {
       const response = await fetch(
-        "http://43.204.221.46:8000/linkedin/scrape_by_url",
+        "http://43.205.73.56:8000/linkedin/scrape_by_url",
         {
           method: "POST",
           headers: {
